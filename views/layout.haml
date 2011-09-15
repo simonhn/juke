@@ -1,0 +1,16 @@
+%html{:lang => "en"}
+  %head
+    %title #{"#{@title} : " if @title}JUKE
+    %meta{:charset => "utf-8"}
+    %link{:href => "/css/bootstrap.css", :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => "/css/app.css", :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
+    :javascript 
+  %body
+    .container
+      %header#main
+        %hgroup
+          %a{:href => "/"}
+            %h1 OFFICE JUKE
+      #main-content
+        =yield

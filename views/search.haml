@@ -1,0 +1,7 @@
+%div{:id => 'wrapper'}
+  %section{:id => 'contents'}
+    %article.overview
+      - @result.each do |id,track|
+        %h2.title=  track['name'].to_s
+        %h3.title=  track['href'].to_s
+        %a.btn.primary{:href => "/add?track="+track['href'].to_s} Play on JUKE
