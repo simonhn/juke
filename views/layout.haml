@@ -2,15 +2,50 @@
   %head
     %title #{"#{@title} : " if @title}JUKE
     %meta{:charset => "utf-8"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Droid+Sans", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "/css/bootstrap.css", :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => "/css/app.css", :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
+    %script{:type=>"text/javascript", :src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"}
+    %script{:type=>"text/javascript", :src=>"js/lastfm.js"}
+    %script{:type=>"text/javascript", :src=>"js/now-playing.js"}
+    %link{:href => "/favicon.ico", :rel => "shortcut icon"}
     :javascript 
+      jQuery.expr[':'].Contains = function(a, i, m) { 
+        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0; 
+      };
+      $(document).ready(function(){
+        setTimeout(function(){
+          $(".alert-message").fadeOut("slow", function () {
+            $(".alert-message").remove();
+            });
+        }, 3000);
+        
+        var api = new LastfmAPI('59926353878c9652cb94417db629a2eb');
+        np = new NowPlaying(api, 'simonhn',8);
+        np.autoUpdate();
+      });
   %body
+    %div{:id => 'alert-container'}
+      - %w[notice error warning alert info].each do |key|
+        - if flash[key]
+          %div{:id => key,:class => "alert-message #{key}"}= flash[key]
     .container
       %header#main
         %hgroup
+          %img{:id => 'main-icon', :src => '/images/radio.svg'}
           %a{:href => "/"}
-            %h1 OFFICE JUKE
+            %h1 OFFICE JUKEBOX
+          %div#nowplaying
+            %span#artist
+            %span.separator
+            %span#track
+            %div#cover
       #main-content
-        =yield
+        %form#hamlurl{:action => "/search", :method => "GET"}
+          .input
+            %input#search.xlarge{:name => "q", :size => "30", :type => "search", :autofocus => "",  :placeholder => "Search tracks"}
+            %button.btn.primary Search
+        %section{:id => 'contents'}
+          %div.row
+            %div{:id => 'playlist', :class => 'span12 columns offset2'}
+              =yield

@@ -1,14 +1,7 @@
-%form#hamlurl{:action => "/search", :method => "POST"}
-  .input
-    %input#search.xlarge{:name => "q", :size => "30", :type => "text"}
-    %button.btn.small.primary Search
-%div#playlist
-  - %w[notice error warning alert info].each do |key|
-    - if flash[key]
-      %div{:id => key,:class => "alert-message success"}= flash[key]
-  - @tracks.each do |artist,track|
-    %h2.title=  artist.to_s
-    %h3.title=  track.to_s
-    
-    
-    
+- @tracks.each do |id,track|
+  %div.track
+    %span.del
+      %a.btn.small.primary{:href => '/remove?index='+id.to_s, :title=>'Delete Track', :alt=>'Delete Track' }
+        %img{:id => 'del-icon', :src => '/images/del.svg'}
+    %span.title
+      %div{:data => id}= "#{track['track']['artists'].first['name'].to_s} : #{track['track']['name'].to_s}"

@@ -1,2 +1,28 @@
-div.input {margin-left: 0px;}
 .container{margin-top:30px;}
+#main-content{padding-top:30px;}
+#alert-container{height:20px;}
+.alert-message{text-align:center;}
+
+#main-icon{width:100px;}
+header,form{margin: 0 auto;text-align: center;}
+div.input {margin-left: 0px;}
+form{padding-bottom:20px;}
+#nowplaying{height:10px;}
+#add-icon,#del-icon{width:15px;}
+
+.track{margin-top:10px;border-bottom: 1px solid rgba(0, 0, 0, .2);
+-webkit-box-shadow: 0px 1px 0px hsla(0, 0%, 100%, 1);
+-moz-box-shadow: 0px 1px 0px hsla(0, 0%, 100%, 1);
+box-shadow: 0px 1px 0px hsla(0, 0%, 100%, 1);
+padding-bottom: 0px;}
+
+.title{padding-left:45px;}
+.title div{padding-right: 10px;}
+span.del,span.add{float:left;padding-right: 8px;}
+.del .btn.small {padding: 5px 9px 5px;}
+
+#playing{float:right;padding-right:20px;}
+#playing span{position: relative;}
+#playing img{width: 20px;position: absolute;top: -15px;}
+
+body{padding-bottom:60px;}
