@@ -4,5 +4,5 @@ A web interface to add and remove tracks to a Spotify playlist. Uses the [spotif
 
 <center>
 <img src="https://github.com/simonhn/juke/raw/master/public/images/screen1.png" alt="1">
-<img src="https://github.com/simonhn/juke/raw/master/public/images/screen1.png" alt="1">
+<img src="https://github.com/simonhn/juke/raw/master/public/images/screen2.png" alt="1">
 </center>
