@@ -51,14 +51,14 @@ helpers do
   end
     
   def add_to_playlist(track,spotify_playlist_id,count=0)
-    url = "http://localhost:1337/playlist/#{spotify_playlist_id}/add?index=#{count.to_s}"
+    url = "http://127.0.0.1:1337/playlist/#{spotify_playlist_id}/add?index=#{count.to_s}"
     uri = URI.escape(url)
     result = RestClient.post uri, track.inspect
     return result
   end
   
   def show_playlist(spotify_playlist_id)
-    url = "http://localhost:1337/playlist/"+spotify_playlist_id
+    url = "http://127.0.0.1:1337/playlist/"+spotify_playlist_id
     uri = URI.escape(url)
     file = RestClient.get uri
     json = Crack::JSON.parse(file)
@@ -66,7 +66,7 @@ helpers do
   end
   
   def playlist_count(spotify_playlist_id)
-    url = "http://localhost:1337/playlist/"+spotify_playlist_id
+    url = "http://127.0.0.1:1337/playlist/"+spotify_playlist_id
     uri = URI.escape(url)
     file = RestClient.get uri
     json = Crack::JSON.parse(file)
@@ -81,7 +81,7 @@ helpers do
   end
   
   def delete_track(spotify_playlist_id, index)
-    url = URI.escape("http://localhost:1337/playlist/#{spotify_playlist_id}/remove?index=#{index.to_s}&count=1")
+    url = URI.escape("http://127.0.0.1:1337/playlist/#{spotify_playlist_id}/remove?index=#{index.to_s}&count=1")
     result = RestClient.post url, :foo => 'bar'
     return result
   end
