@@ -2,6 +2,6 @@
   %div.track
     %span.del
       %a.btn.small.primary{:href => '/remove?index='+id.to_s, :title=>'Delete Track', :alt=>'Delete Track' }
-        %img{:id => 'del-icon', :src => '/images/del.svg'}
+        %img{:id => 'del-icon', :src => '/images/del-white.svg'}
     %span.title
       %div{:data => id}= "#{track['track']['artists'].first['name'].to_s} : #{track['track']['name'].to_s}"

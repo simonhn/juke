@@ -12,26 +12,26 @@ NowPlaying.prototype = {
       //no change 
        if ($('#artist').text() === track.artist && $('#track').text()===track.name )
        {
-          //$('.now').removeClass("now");
+          $('.now').removeClass("now");
           //$('#playing').remove();
           
           $('#artist').text(track.artist);
           $('.separator').text(" - ");
           $('#track').text(track.name);
            $('<span id="playing"><span><img alt="Now Playing" id="del-icon" src="/images/speaker.svg"></span></span>').hide().appendTo('div.track:contains('+track.name+')');
-          //$('div.track:contains('+track.name+')').addClass('now');
+          $('div.track:contains('+track.name+')').addClass('now');
           //var image = document.createElement('img');
           //image.src = track.image;
         }
         else{
           $('#playing').remove();
-          //$('.now').removeClass("now");
+          $('.now').removeClass("now");
           $('#artist').text(track.artist).hide().fadeIn();
           $('.separator').text(" - ").hide().fadeIn();
           $('#track').text(track.name).hide().fadeIn();
           //$('div.track:contains('+track.name+')').append('<span id="playing"><img alt="Now Playing" id="del-icon" src="/images/speaker.svg"></span>').hide().fadeIn();
            $('<span id="playing"><span><img alt="Now Playing" id="del-icon" src="/images/speaker.svg"></span></span>').hide().appendTo('div.track:contains('+track.name+')').fadeIn();
-          //$('div.track:contains('+track.name+')').addClass('now');
+          $('div.track:contains('+track.name+')').addClass('now');
         }
     },
     

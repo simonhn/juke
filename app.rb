@@ -101,7 +101,6 @@ end
 
 get '/search' do
   @result = search_spotify(params[:q])
-  puts @result.inspect
   if @result.length == 0
     flash[:error] = "No results"
     redirect '/'
