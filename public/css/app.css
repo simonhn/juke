@@ -7,6 +7,7 @@
 header,form{margin: 0 auto;text-align: center;}
 div.input {margin-left: 0px;}
 form{padding-bottom:20px;}
+form .input button{vertical-align: bottom;height: 28px;padding:1px 13px 1px}
 #nowplaying{height:10px;}
 #add-icon,#del-icon{width:15px;}
 
