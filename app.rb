@@ -87,6 +87,14 @@ helpers do
   end
 end
 
+not_found do
+  haml :'404'
+end
+
+error do
+  haml :'500'
+end
+
 get '/' do
   @tracks = Hash.new
   @result = show_playlist('spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ')
