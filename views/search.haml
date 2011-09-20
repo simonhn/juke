@@ -1,7 +1,8 @@
 - @result.each do |id,track|
   %div.track.search
     %span.add
-      %a.btn.primary.add{:href => "/add?track="+track['href'].to_s, :title=>'Add Track to the Office Jukebox', :alt=>'Add Track to the Office Jukebox'}
-        %img{:id => 'add-icon',:src => '/images/headphones-white.svg'}
+      %form#addform{:action => '/add/'+track['href'].to_s, :method => 'post'}
+        %button.btn.primary.add{:type=>"submit", :title=>'Add Track to the Office Jukebox', :alt=>'Add Track to the Office Jukebox'}
+          %img{:id => 'add-icon',:src => '/images/headphones-white.svg'}
     %span.title
       %div=  "#{track['name'].to_s} : #{track['artists'].first['name']} : #{track['album']['name']}"

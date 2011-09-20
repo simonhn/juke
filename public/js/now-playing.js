@@ -9,22 +9,12 @@ NowPlaying.prototype = {
     
     display: function(track)
     {
-      //no change 
-       if ($('#artist').text() === track.artist && $('#track').text()===track.name )
-       {
-          $('.now').removeClass("now");
-          //$('#playing').remove();
-          
-          $('#artist').text(track.artist);
-          $('.separator').text(" - ");
-          $('#track').text(track.name);
-           $('<span id="playing"><span><img alt="Now Playing" id="del-icon" src="/images/speaker-grey.svg"></span></span>').hide().appendTo('div.track:contains('+track.name+')');
-          $('div.track:contains('+track.name+')').addClass('now');
-          //var image = document.createElement('img');
-          //image.src = track.image;
-        }
-        else{
-          $('#playing').remove();
+      //only redraw if the track is new 
+       if ( ($('#artist').text() !== track.artist) && ($('#track').text()!==track.name) )
+       {          
+          $('#playing').fadeOut("normal", function() {
+                  $(this).remove();
+          });
           $('.now').removeClass("now");
           $('#artist').text(track.artist).hide().fadeIn();
           $('.separator').text(" - ").hide().fadeIn();

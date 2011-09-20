@@ -117,7 +117,7 @@ get '/search' do
   end
 end
 
-get '/remove' do
+post '/remove/:index' do
   index = params[:index]
   if index
     result = delete_track('spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ', index)
@@ -130,9 +130,9 @@ get '/remove' do
   redirect '/'
 end
 
-get '/add' do 
+post '/add/:id' do 
   playlist_id = 'spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ'
-  track_id = [ params[:track].to_s ]
+  track_id = [ params[:id].to_s ]
   if track_id
     count = playlist_count(playlist_id)
     result = add_to_playlist(track_id,playlist_id,count)
