@@ -2,7 +2,7 @@
   %div.track.search
     %span.add
       %form#addform{:action => '/add/'+track['href'].to_s, :method => 'post'}
-        %button.btn.primary.add{:type=>"submit", :title=>'Add Track to the Office Jukebox', :alt=>'Add Track to the Office Jukebox'}
+        %button.btn.small.primary.add{:type=>"submit", :title=>'Add Track to the Office Jukebox', :alt=>'Add Track to the Office Jukebox'}
           %img{:id => 'add-icon',:src => '/images/headphones-white.svg'}
     %span.title
       %div=  "#{track['name'].to_s} : #{track['artists'].first['name']} : #{track['album']['name']}"

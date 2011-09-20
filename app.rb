@@ -14,6 +14,7 @@ configure do
   #DataMapper.setup(:default, @connection)
   #DataMapper.finalize
   set :haml, {:format => :html5}
+  set :spotify_playlist_id_constant, 'spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ'
 end
 
 helpers do
@@ -97,7 +98,7 @@ end
 
 get '/' do
   @tracks = Hash.new
-  @result = show_playlist('spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ')
+  @result = show_playlist(settings.spotify_playlist_id_constant)
   i = 0
   @result['tracks'].each do |doc|
     result = lookup_track(doc)
@@ -120,7 +121,7 @@ end
 post '/remove/:index' do
   index = params[:index]
   if index
-    result = delete_track('spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ', index)
+    result = delete_track(settings.spotify_playlist_id_constant, index)
     if result.code == 200
       flash[:notice] = "Track has been removed"
     else
@@ -131,11 +132,10 @@ post '/remove/:index' do
 end
 
 post '/add/:id' do 
-  playlist_id = 'spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ'
   track_id = [ params[:id].to_s ]
   if track_id
-    count = playlist_count(playlist_id)
-    result = add_to_playlist(track_id,playlist_id,count)
+    count = playlist_count(settings.spotify_playlist_id_constant)
+    result = add_to_playlist(track_id,settings.spotify_playlist_id_constant,count)
     if result.code == 200
       flash[:notice] = "Track has been added"
     else

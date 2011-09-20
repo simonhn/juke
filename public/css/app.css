@@ -22,6 +22,7 @@ padding-bottom: 0px;clear:both;}
 .title div{padding-right: 10px;}
 span.del,span.add{float:left;padding-right: 8px;}
 .del .btn.small {padding: 5px 9px 5px;}
+.add .btn.small {padding: 3px 9px 3px;}
 
 #playing{float:right;padding-right:20px;}
 #playing span{position: relative;}
