@@ -2,6 +2,7 @@
 #main-content{padding-top:30px;}
 #alert-container{height:20px;}
 .alert-message{text-align:center;}
+div.user{text-align: right;margin-right: 250px;}
 
 #main-icon{width:100px;}
 header,form{margin: 0 auto;text-align: center;}
@@ -29,3 +30,45 @@ span.del,span.add{float:left;padding-right: 8px;}
 #playing img{width: 20px;position: absolute;top: -15px;}
 
 body{padding-bottom:60px;}
+
+.third-party-signin{
+  text-align: center;
+  padding-bottom: 40px;
+  padding-top: 25px;
+}
+
+.third-party-signin .twitter{
+  text-decoration: none;
+  background: #1AA8D8 url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeUlEQVQ4EZ2UzStEURiH753Y+IiIpBBZKKWEtYWarKzEVrFgY21hw1JZ2fkLbNQspJRiYUNRlLIzZKF8NE1pzCzmet6bc517nJNjfvV03vN7P87pzr0TRlEU1KAMPauQhQfYgntIS4ZrdBI3aHs9p8fb1IiqcAhDoOfj2DSWKMrDOgzYGvCyYOoFYwVS81IbknLzWxAVYReGQdVliM/ApXkSqjZIAs1cIJbBSiWCHZDHNaVMx/qE3wbxXNvwnKPxFP/EkdPtRTbtYL15L4l9+IBaVKDpGAJ5pUw9YlxC1Ux47luoa4SxOkfDJ758AELoqHHZRySm46Rc38Eg/gX8R/Lej0A80/ZY1I3ki6tAWRke6x41N0kdp/SokyxrN57v7Z+p7dNnyDNvgg24gnMoQRdMwjKMwl8qUDAH8j/zo++TxlmvoQLvUAZfSd8E/PrtdKOZgk14BR/lKVoD6dPnJHEoCUMd7GdhBvqhFepBXs83uIMcHEARnPoCh8RFgGt0UGYAAAAASUVORK5CYII=") no-repeat 12px 50%;
+  padding-left: 49px;
+  width: 144px;
+}
+.twitter:hover {background-color: #1795BF;color:white;}
+
+.third-party-signin .facebook{
+  text-decoration: none;
+  background: #3B5998 url("data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVQ4EWP4////aiAmF6xmBOlkoAAwEan3O1BdMRDLAzEjENcAMRiwwBgE6Fyg/FwkNe/gbCI9LwHyKRBHAfFJIH4IxGBAbBiAnA0CH4CYH8yCEqQagBHghAJxK9AimO0gO0FsEJ4O4oAAIQMgqvCQNPcCHrshUhR7YXAYAErnhAAo/jHSAFDsO8gLswjpxiM/CwC2XZlxYrqelwAAAABJRU5ErkJggg==") no-repeat 15px 11px;
+  padding-left: 45px;
+  margin-left: 5px;
+  width: 158px;
+}
+a.facebook:hover{background-color:#324a80;color:white;}
+
+.signin-button {
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  color: white;
+  border: 0;
+  font-size: 15px;
+  background: transparent;
+  padding: 10px 12px 10px 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  -moz-transition: background .1s linear;
+  -webkit-transition: background .1s linear;
+  -o-transition: background .1s linear;
+  transition: background .1s linear;
+  display: inline-block;
+}

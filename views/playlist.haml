@@ -1,0 +1,8 @@
+- @tracks.each do |id,track|
+  %div.track
+    %span.del
+      %form#removeform{:action => '/remove/'+id.to_s, :method => 'post'}
+        %button.btn.small.primary{:type=>"submit", :title=>'Delete Track', :alt=>'Delete Track' }
+          %img{:id => 'del-icon', :src => '/images/del-white.svg'}
+    %span.title
+      %div{:data => id}= "#{track['track']['artists'].first['name'].to_s} : #{track['track']['name'].to_s}"

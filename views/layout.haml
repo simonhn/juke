@@ -28,6 +28,10 @@
       - %w[notice error warning alert info].each do |key|
         - if flash[key]
           %div{:id => key,:class => "alert-message #{key}"}= flash[key]
+      - if @current_user
+        %div.user
+          Signed in as #{@current_user.nickname}: 
+          %a{:href=>"/sign_out"}Log out
     .container
       %header#main
         %hgroup

@@ -1,0 +1,8 @@
+# store your custom template at foo/bar/database.yml.erb
+#set :template_dir, "config"
+#
+# example of database template
+
+
+CONSUMER_KEY:  <%= Capistrano::CLI.ui.ask("Enter CONSUMER_KEY: ") %>
+CONSUMER_SECRET: <%= Capistrano::CLI.ui.ask("Enter CONSUMER_SECRET: ") %>
