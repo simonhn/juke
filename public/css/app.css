@@ -1,4 +1,7 @@
-.container{margin-top:30px;}
+body{padding-top:40px;}
+#main{margin-top:30px;}
+p.pull-right{display: inline;}
+p.pull-right img{vertical-align: middle;height: 32px;width: 35px;padding-right:5px;padding-top:5px;padding-bottom:5px;}
 #main-content{padding-top:30px;}
 #alert-container{height:20px;}
 .alert-message{text-align:center;}

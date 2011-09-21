@@ -24,21 +24,25 @@
         np.autoUpdate();
       });
   %body
-    %div{:id => 'alert-container'}
-      - %w[notice error warning alert info].each do |key|
-        - if flash[key]
-          %div{:id => key,:class => "alert-message #{key}"}= flash[key]
-      - if @current_user
-        %div.user
-          %img{:src => @current_user.image, :title => @current_user.nickname}
-          %a.btn.small{:href => "/sign_out"} Log out
+    .topbar
+      .fill
+        .container
+          %a.brand{:href => "/"} Office Jukebox
+          %p.pull-right
+            - if @current_user
+              %img{:src => @current_user.image, :title => @current_user.nickname}
+              %a{:href => "/sign_out"} Log out
     .container
+      %div{:id => 'alert-container'}
+        - %w[notice error warning alert info].each do |key|
+          - if flash[key]
+            %div{:id => key,:class => "alert-message #{key}"}= flash[key]
       %header#main
         %hgroup
           %a{:href => "/"}
             %img{:id => 'main-icon', :src => '/images/radio.svg'}
-          %a{:href => "/"}
-            %h1 OFFICE JUKEBOX
+          //%a{:href => "/"}
+            //%h1 OFFICE JUKEBOX
           %div#nowplaying
             %span#artist
             %span.separator
