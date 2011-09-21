@@ -29,11 +29,14 @@ configure do
   DataMapper.finalize
   DataMapper.auto_upgrade!
   @config = YAML::load( File.open( 'config/settings.yml' ) )
-  key = "#{@config['CONSUMER_KEY']}"
-  secret = "#{@config['CONSUMER_SECRET']}"
+  twitter_key = "#{@config['CONSUMER_KEY']}"
+  twitter_secret = "#{@config['CONSUMER_SECRET']}"
+  facebook_key = "#{@config['App_ID']}"
+  facebook_secret = "#{@config['App_Secret']}"
+  
   use OmniAuth::Builder do
-    provider :twitter, key, secret
-    provider :facebook,  key, secret
+    provider :twitter, twitter_key, twitter_secret
+    provider :facebook,  facebook_key, facebook_secret
   end
 
   set :haml, {:format => :html5}
