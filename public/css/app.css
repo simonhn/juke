@@ -2,7 +2,9 @@
 #main-content{padding-top:30px;}
 #alert-container{height:20px;}
 .alert-message{text-align:center;}
-div.user{text-align: right;margin-right: 250px;}
+div.user{text-align: right;margin-right: 545px;}
+div.user img{-webkit-border-radius: 2px;-moz-border-radius: 2px;height: 32px;width: 35px;padding-right:5px;padding-top:5px;}
+div.user a{position:absolute;top:7px;}
 
 #main-icon{width:100px;}
 header,form{margin: 0 auto;text-align: center;}

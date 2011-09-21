@@ -18,6 +18,7 @@ class User
   property :uid,        String
   property :name,       String
   property :nickname,   String
+  property :image,      String
   property :created_at, DateTime
 end
 
@@ -28,7 +29,12 @@ configure do
   DataMapper.finalize
   DataMapper.auto_upgrade!
   @config = YAML::load( File.open( 'config/settings.yml' ) )
-  use OmniAuth::Strategies::Twitter, "#{@config['CONSUMER_KEY']}","#{@config['CONSUMER_SECRET']}"
+  key = "#{@config['CONSUMER_KEY']}"
+  secret = "#{@config['CONSUMER_SECRET']}"
+  use OmniAuth::Builder do
+    provider :twitter, key, secret
+    provider :facebook,  key, secret
+  end
 
   set :haml, {:format => :html5}
   set :spotify_playlist_id_constant, 'spotify:user:s%c3%a4ders%c3%a4rla:playlist:5Y55eeChjOVhzi58P0o0NZ'
@@ -146,18 +152,19 @@ get '/auth/:name/callback' do
   user = User.first_or_create({ :uid => auth["uid"]}, { 
     :uid => auth["uid"], 
     :nickname => auth["user_info"]["nickname"], 
-    :name => auth["user_info"]["name"], 
+    :name => auth["user_info"]["name"],
+    :image => auth["user_info"]["image"], 
     :created_at => Time.now })
   session[:user_id] = user.id
   flash[:info] = "You are now logged in"
   redirect '/'
 end
 
-# any of the following routes should work to sign the user in: 
-#   /sign_up, /signup, /sign_in, /signin, /log_in, /login
-["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
-  get path do
+get '/sign_in/:provider/?' do
+  if params[:provider]=='twitter'
     redirect '/auth/twitter'
+  elsif params[:provider]=='facebook'
+    redirect '/auth/facebook'
   end
 end
 
