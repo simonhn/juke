@@ -8,6 +8,18 @@ p.pull-right img{vertical-align: middle;height: 32px;width: 35px;padding-right:5
 div.user{text-align: right;margin-right: 545px;}
 div.user img{-webkit-border-radius: 2px;-moz-border-radius: 2px;height: 32px;width: 35px;padding-right:5px;padding-top:5px;}
 div.user a{position:absolute;top:7px;}
+.menu a#twitter{
+background-image: url(data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeUlEQVQ4EZ2UzStEURiH753Y+IiIpBBZKKWEtYWarKzEVrFgY21hw1JZ2fkLbNQspJRiYUNRlLIzZKF8NE1pzCzmet6bc517nJNjfvV03vN7P87pzr0TRlEU1KAMPauQhQfYgntIS4ZrdBI3aHs9p8fb1IiqcAhDoOfj2DSWKMrDOgzYGvCyYOoFYwVS81IbknLzWxAVYReGQdVliM/ApXkSqjZIAs1cIJbBSiWCHZDHNaVMx/qE3wbxXNvwnKPxFP/EkdPtRTbtYL15L4l9+IBaVKDpGAJ5pUw9YlxC1Ux47luoa4SxOkfDJ758AELoqHHZRySm46Rc38Eg/gX8R/Lej0A80/ZY1I3ki6tAWRke6x41N0kdp/SokyxrN57v7Z+p7dNnyDNvgg24gnMoQRdMwjKMwl8qUDAH8j/zo++TxlmvoQLvUAZfSd8E/PrtdKOZgk14BR/lKVoD6dPnJHEoCUMd7GdhBvqhFepBXs83uIMcHEARnPoCh8RFgGt0UGYAAAAASUVORK5CYII=);
+background-repeat: no-repeat;
+background-position: right center;
+background-position: 87% 50%;
+}
+.menu a#facebook{
+background-image: url(data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVQ4EWP4////aiAmF6xmBOlkoAAwEan3O1BdMRDLAzEjENcAMRiwwBgE6Fyg/FwkNe/gbCI9LwHyKRBHAfFJIH4IxGBAbBiAnA0CH4CYH8yCEqQagBHghAJxK9AimO0gO0FsEJ4O4oAAIQMgqvCQNPcCHrshUhR7YXAYAErnhAAo/jHSAFDsO8gLswjpxiM/CwC2XZlxYrqelwAAAABJRU5ErkJggg==);
+background-repeat: no-repeat;
+background-position: right center;
+background-position: 87% 50%;
+}
 
 #main-icon{width:100px;}
 header,form{margin: 0 auto;text-align: center;}

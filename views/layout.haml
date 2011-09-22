@@ -42,10 +42,10 @@
                   %a.menu{:href => "#"} Sign In
                   %ul.menu-dropdown
                     %li
-                      %a{:href => "/sign_in/twitter"} Using Twitter
+                      %a#twitter{:href => "/sign_in/twitter"} Using Twitter
                     %li.divider
                     %li
-                      %a{:href => "/sign_in/facebook"} Using Facebook
+                      %a#facebook{:href => "/sign_in/facebook"} Using Facebook
     .container
       %div{:id => 'alert-container'}
         - %w[notice error warning alert info].each do |key|
