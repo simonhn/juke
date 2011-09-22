@@ -4,8 +4,8 @@
 # example of database template
 
 
-twitter_consumer_key:  <%= Capistrano::CLI.ui.ask("Enter twitter_consumer_key: ") %>
-twitter_consumer_secret: <%= Capistrano::CLI.ui.ask("Enter twitter_consumer_secret: ") %>
+CONSUMER_KEY: <%= Capistrano::CLI.ui.ask("Enter twitter_consumer_key: ") %>
+CONSUMER_SECRET: <%= Capistrano::CLI.ui.ask("Enter twitter_consumer_secret: ") %>
 
-App_ID:  <%= Capistrano::CLI.ui.ask("Enter facebook_app_id: ") %>
+App_ID: <%= Capistrano::CLI.ui.ask("Enter facebook_app_id: ") %>
 App_Secret: <%= Capistrano::CLI.ui.ask("Enter facebook_app_secret: ") %>

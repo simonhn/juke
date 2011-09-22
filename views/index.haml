@@ -1,3 +1,24 @@
-.third-party-signin
-  %a.signin-button.twitter{:href => "/sign_in/twitter"} sign in with twitter
-  %a.signin-button.facebook.disabled{:href => "/sign_in/facebook"} sign in with facebook
+- if !@current_user and !request.cookies['firstVisit']
+  .third-party-signin
+    .alert-message.block-message.info.fade.in
+      %a.close{:href => "#"} ×
+      %strong Welcome to the office jukebox.
+      %p To add and remove tracks you need to sign in first.
+      %p Happy jukeboxing (but please stop playing Coldplay)!
+      %br
+      %a.signin-button.twitter{:href => "/sign_in/twitter"} sign in with twitter
+      %a.signin-button.facebook{:href => "/sign_in/facebook"} sign in with facebook
+:javascript 
+  $(document).ready(function(){
+    var api = new LastfmAPI('59926353878c9652cb94417db629a2eb');
+    np = new NowPlaying(api, 'simonhn',8);
+    np.autoUpdate();
+  });
+- @tracks.each do |id,track|
+  %div.track
+    %span.del
+      %form#removeform{:action => '/remove/'+id.to_s, :method => 'post'}
+        %button.btn.small.primary{:type=>"submit", :title=>'Delete Track', :alt=>'Delete Track' }
+          %img{:id => 'del-icon', :src => '/images/del-white.svg'}
+    %span.title
+      %div{:data => id}= "#{track.artist_title.to_s} : #{track.track_title.to_s}"

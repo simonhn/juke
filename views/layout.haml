@@ -5,23 +5,27 @@
     %link{:href => "/css/bootstrap.css", :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => "/css/app.css", :rel => 'stylesheet', :type => 'text/css'}
     %script{:type=>"text/javascript", :src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"}
+    %script{:type=>"text/javascript", :src=>"js/jquery.cookie.js"}
+    %script{:type=>"text/javascript", :src=>"js/bootstrap-dropdown.js"}
+    %script{:type=>"text/javascript", :src=>"js/bootstrap-alerts.js"}
     %script{:type=>"text/javascript", :src=>"js/lastfm.js"}
     %script{:type=>"text/javascript", :src=>"js/now-playing.js"}
     %link{:href => "/favicon.ico", :rel => "shortcut icon"}
     :javascript 
-      jQuery.expr[':'].Contains = function(a, i, m) { 
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0; 
-      };
       $(document).ready(function(){
+        $('#topbar').dropdown();
+        $(".third-party-signin .alert-message").alert();
+        $(".third-party-signin .alert-message").click(function() {
+          $.cookie('firstVisit', 'false');
+        });
+        $(".third-party-signin .alert-message .signin-button").click(function() {
+          $.cookie('firstVisit', 'false');
+        });
         setTimeout(function(){
-          $(".alert-message").fadeOut("slow", function () {
-            $(".alert-message").remove();
+          $("#alert-container .alert-message").fadeOut("slow", function () {
+            $("#alert-container .alert-message").remove();
             });
         }, 3000);
-        
-        var api = new LastfmAPI('59926353878c9652cb94417db629a2eb');
-        np = new NowPlaying(api, 'simonhn',8);
-        np.autoUpdate();
       });
   %body
     .topbar
@@ -29,9 +33,19 @@
         .container
           %a.brand{:href => "/"} Office Jukebox
           %p.pull-right
-            - if @current_user
+            - if current_user
               %img{:src => @current_user.image, :title => @current_user.nickname}
-              %a{:href => "/sign_out"} Log out
+              %a{:href => "/sign_out"} Sign Out
+            - else
+              %ul.nav.secondary-nav
+                %li.menu{"data-dropdown" => "dropdown"}
+                  %a.menu{:href => "#"} Sign In
+                  %ul.menu-dropdown
+                    %li
+                      %a{:href => "/sign_in/twitter"} Using Twitter
+                    %li.divider
+                    %li
+                      %a{:href => "/sign_in/facebook"} Using Facebook
     .container
       %div{:id => 'alert-container'}
         - %w[notice error warning alert info].each do |key|

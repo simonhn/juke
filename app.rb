@@ -14,12 +14,23 @@ enable :sessions
 
 class User
   include DataMapper::Resource
-  property :id,         Serial
-  property :uid,        String
-  property :name,       String
-  property :nickname,   String
-  property :image,      String
-  property :created_at, DateTime
+  property :id,           Serial
+  property :uid,          String
+  property :name,         String
+  property :nickname,     String
+  property :image,        String
+  property :created_at,   DateTime
+  has n, :tracks, :through => Resource
+  
+end
+
+class Track
+  include DataMapper::Resource
+  property :spotify_id,     String, :key => true
+  property :artist_title,   String
+  property :track_title,    String
+  property :created_at,     DateTime
+  has n, :users, :through => Resource
 end
 
 configure do
@@ -35,8 +46,8 @@ configure do
   facebook_secret = "#{@config['App_Secret']}"
   
   use OmniAuth::Builder do
-    provider :twitter, twitter_key, twitter_secret
     provider :facebook,  facebook_key, facebook_secret
+    provider :twitter, twitter_key, twitter_secret
   end
 
   set :haml, {:format => :html5}
@@ -84,6 +95,7 @@ helpers do
   def add_to_playlist(track,spotify_playlist_id,count=0)
     url = "http://127.0.0.1:1337/playlist/#{spotify_playlist_id}/add?index=#{count.to_s}"
     uri = URI.escape(url)
+    puts uri
     result = RestClient.post uri, track.inspect
     return result
   end
@@ -111,6 +123,30 @@ helpers do
     return json
   end
   
+  def get_track(spotify_id)
+    #do we have it in the db?
+    db_result = Track.first(:spotify_id => spotify_id)
+    
+    #yes we do
+    if db_result
+      return db_result
+    
+    #no we dont
+    else  
+      #lookup in spotify metadata api
+      spotify_result = lookup_track(spotify_id)
+      #save result for future
+      track = Track.create(
+        :spotify_id => spotify_id, 
+        :artist_title => spotify_result['track']['artists'].first['name'].to_s, 
+        :track_title => spotify_result['track']['name'].to_s,
+        :created_at => Time.now
+        )
+      track.save
+      return track
+    end
+  end
+  
   def delete_track(spotify_playlist_id, index)
     url = URI.escape("http://127.0.0.1:1337/playlist/#{spotify_playlist_id}/remove?index=#{index.to_s}&count=1")
     result = RestClient.post url, :foo => 'bar'
@@ -127,27 +163,25 @@ error do
 end
 
 get '/' do
-  if current_user
-    @bruger = current_user
-    @session = session[:user_id].to_s
-    
-    @tracks = Hash.new
-    @result = show_playlist(settings.spotify_playlist_id_constant)
-    i = 0
-    @result['tracks'].each do |doc|
-      result = lookup_track(doc)
-      @tracks[i] = result
-      i = i + 1
-    end
-    haml :playlist
-  else
-    haml :index
+  @bruger = current_user
+  @session = session[:user_id].to_s
+  
+  @tracks = Hash.new
+  @result = show_playlist(settings.spotify_playlist_id_constant)
+  i = 0
+  @result['tracks'].each do |doc|
+    result = get_track(doc)
+    @tracks[i] = result
+    i = i + 1
   end
+  haml :index
 end
 
 get '/db' do
-  users = User.all
-  puts users.inspect
+  @users = User.all
+  @tracks = Track.all
+  @ut = TrackUser.all
+  haml :db
 end
 
 get '/auth/:name/callback' do
@@ -176,48 +210,59 @@ end
   get path do
     session[:user_id] = nil
     flash[:info] = "You are now logged out"
-    redirect '/'
+    redirect back
   end
 end
 
 get '/search' do
-  if current_user
-    @result = search_spotify(params[:q])
-    if @result.length == 0
-      flash[:error] = "No results"
-      redirect '/'
-    else
-      haml :search
-    end
+  @result = search_spotify(params[:q])
+  if @result.length == 0
+    flash[:error] = "No results"
+    redirect back
   else
-    flash[:error] = "You need to log in first"
-    haml :index
+    haml :search
   end
 end
 
 post '/remove/:index' do
-  index = params[:index]
-  if index
-    result = delete_track(settings.spotify_playlist_id_constant, index)
-    if result.code == 200
-      flash[:notice] = "Track has been removed"
-    else
-      flash[:error] = "Could not remove the track, try again"
+  if current_user
+    index = params[:index]
+    if index
+      result = delete_track(settings.spotify_playlist_id_constant, index)
+      if result.code == 200
+        flash[:notice] = "Track has been removed"
+      else
+        flash[:error] = "Could not remove the track, try again"
+      end
     end
+    redirect '/'
+  else
+    flash[:error] = "Only logged in users can remove tracks."
+    redirect back
   end
-  redirect '/'
 end
 
-post '/add/:id' do 
-  track_id = [ params[:id].to_s ]
-  if track_id
-    count = playlist_count(settings.spotify_playlist_id_constant)
-    result = add_to_playlist(track_id,settings.spotify_playlist_id_constant,count)
-    if result.code == 200
-      flash[:notice] = "Track has been added"
-    else
-      flash[:error] = "Could not add the track, try again"
+post '/add/:id' do
+  if current_user
+    track_id = [ params[:id].to_s ]
+    if track_id
+      count = playlist_count(settings.spotify_playlist_id_constant)
+      puts count.to_s
+      result = add_to_playlist(track_id,settings.spotify_playlist_id_constant,count)
+      if result.code == 200
+        #add to TrackUser table:
+        track = get_track(track_id)
+        cu = current_user
+        user_track = cu.tracks << track
+        user_track.save
+        flash[:notice] = "Track has been added"
+      else
+        flash[:error] = "Could not add the track, try again"
+      end
     end
+    redirect "/"
+  else
+    flash[:error] = "Only logged in users can add tracks."
+    redirect back
   end
-  redirect "/"
 end
