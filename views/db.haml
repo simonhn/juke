@@ -2,8 +2,5 @@
   - @users.each do |track|
     %div= "#{track.name.to_s}"
 %div.track
-  - @ut.each do |track|
-    %div= "#{track.user_id} : #{track.track_spotify_id}"
-%div.track
   - @tracks.each do |track|
     %div= "#{track.artist_title.to_s} : #{track.track_title.to_s}"

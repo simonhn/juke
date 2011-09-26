@@ -30,7 +30,7 @@ class Track
   property :artist_title,   String
   property :track_title,    String
   property :created_at,     DateTime
-  has n, :users, :through => Resource
+  belongs_to :user, :required => false 
 end
 
 configure do
@@ -38,7 +38,8 @@ configure do
   #setup db connection:  
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/database.db")
   DataMapper.finalize
-  DataMapper.auto_upgrade!
+  #DataMapper.auto_upgrade!
+  #DataMapper.auto_migrate!
   @config = YAML::load( File.open( 'config/settings.yml' ) )
   twitter_key = "#{@config['CONSUMER_KEY']}"
   twitter_secret = "#{@config['CONSUMER_SECRET']}"
@@ -95,7 +96,6 @@ helpers do
   def add_to_playlist(track,spotify_playlist_id,count=0)
     url = "http://127.0.0.1:1337/playlist/#{spotify_playlist_id}/add?index=#{count.to_s}"
     uri = URI.escape(url)
-    puts uri
     result = RestClient.post uri, track.inspect
     return result
   end
@@ -126,11 +126,10 @@ helpers do
   def get_track(spotify_id)
     #do we have it in the db?
     db_result = Track.first(:spotify_id => spotify_id)
-    
+   
     #yes we do
     if db_result
       return db_result
-    
     #no we dont
     else  
       #lookup in spotify metadata api
@@ -142,7 +141,7 @@ helpers do
         :track_title => spotify_result['track']['name'].to_s,
         :created_at => Time.now
         )
-      track.save
+      track.save      
       return track
     end
   end
@@ -180,7 +179,7 @@ end
 get '/db' do
   @users = User.all
   @tracks = Track.all
-  @ut = TrackUser.all
+
   haml :db
 end
 
@@ -247,7 +246,6 @@ post '/add/:id' do
     track_id = [ params[:id].to_s ]
     if track_id
       count = playlist_count(settings.spotify_playlist_id_constant)
-      puts count.to_s
       result = add_to_playlist(track_id,settings.spotify_playlist_id_constant,count)
       if result.code == 200
         #add to TrackUser table:

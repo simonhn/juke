@@ -24,7 +24,7 @@ LastfmAPI.prototype = {
                 'method': method
             }, params),
             // Forces JSONP errors to fire, needs re-evaluation if long polling is used
-            timeout: 2000
+            timeout: 7000
         })
         .success(function(response) { 
             (response.error ? error : success)(response);
@@ -46,6 +46,13 @@ LastfmAPI.prototype = {
             else {
                 success(false);
             }
+        }, error);
+    },
+    
+    getTrackInfo: function(artist, track, success, error)
+    {
+        this.get('track.getInfo', {artist: artist, track: track}, function(response) {
+           success(response);
         }, error);
     }
 };

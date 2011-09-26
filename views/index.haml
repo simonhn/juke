@@ -8,17 +8,37 @@
       %br
       %a.signin-button.twitter{:href => "/sign_in/twitter"} sign in with twitter
       %a.signin-button.facebook{:href => "/sign_in/facebook"} sign in with facebook
+%ul.tracks
+  - @tracks.each do |id,track|
+    %li.track
+      .image-container
+        %img.cover.medium{:src => "http://abcdigmusic.net.au/sites/all/themes/dig2/images/background/album-cover-shadow/large.png"}
+      .content-container
+        %hgroup.artist-title.large
+          %span.del
+            %form#removeform{:action => '/remove/'+id.to_s, :method => 'post'}
+              %button.btn.small.primary{:type=>"submit", :title=>'Delete Track', :alt=>'Delete Track' }
+                %img{:id => 'del-icon', :src => '/images/del-white.svg'}
+          %h4.artist-title= "#{track.artist_title.to_s}"
+          %h3.track-title= "#{track.track_title.to_s}"
+        - if track.user_id
+          %ul.user-detail
+            %li.block-link
+              %img{:alt => "user", :src =>  User.first(:id => track.user_id).image}/
+              .wrapper
+                %span
+                  added this track
 :javascript 
   $(document).ready(function(){
     var api = new LastfmAPI('59926353878c9652cb94417db629a2eb');
-    np = new NowPlaying(api, 'simonhn',8);
+    np = new NowPlaying(api, 'simonhn',100);
     np.autoUpdate();
+    $('li.track').each(function() {
+      var hat = $(this).find('.cover');
+      ac = new AlbumCover(api,hat);
+      var artist = $(this).find('h4').text();
+      var track = $(this).find('h3').text();
+      ac.fetchCovers(artist,track);
+    });
+    
   });
-- @tracks.each do |id,track|
-  %div.track
-    %span.del
-      %form#removeform{:action => '/remove/'+id.to_s, :method => 'post'}
-        %button.btn.small.primary{:type=>"submit", :title=>'Delete Track', :alt=>'Delete Track' }
-          %img{:id => 'del-icon', :src => '/images/del-white.svg'}
-    %span.title
-      %div{:data => id}= "#{track.artist_title.to_s} : #{track.track_title.to_s}"

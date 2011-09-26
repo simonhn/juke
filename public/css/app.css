@@ -23,8 +23,8 @@ background-position: 87% 50%;
 
 #main-icon{width:100px;}
 header,form{margin: 0 auto;text-align: center;}
+#hamlurl{padding-bottom:40px;}
 div.input {margin-left: 0px;}
-form{padding-bottom:20px;}
 form .input button{vertical-align: bottom;height: 28px;padding:1px 13px 1px}
 #nowplaying{height:10px;}
 #add-icon,#del-icon{width:15px;}
@@ -38,9 +38,13 @@ padding-bottom: 0px;clear:both;}
 
 .title{padding-left:45px;}
 .title div{padding-right: 10px;}
-span.del,span.add{float:left;padding-right: 8px;}
+span.add{float:left;padding-right: 8px;}
+span.del{float:right;}
+
 .del .btn.small {padding: 5px 9px 5px;}
 .add .btn.small {padding: 3px 9px 3px;}
+.track .user img{width:23px;}
+
 
 #playing{float:right;padding-right:20px;}
 #playing span{position: relative;}
@@ -89,3 +93,64 @@ a.facebook:hover{background-color:#324a80;color:white;}
   transition: background .1s linear;
   display: inline-block;
 }
+
+
+
+
+
+
+li.track{
+padding: 15px 0;
+border: 1px solid #E6E6E6;
+border-width: 1px 0 0 0;
+position: relative;
+float: left;}
+.image-container{float:left}
+.cover{margin: 0 20px 0 0;
+width: 75px;
+height: 75px;
+line-height: 750px;
+overflow: hidden;
+text-align: center;
+background-repeat: no-repeat}
+.track .content-container{float: left;}
+
+
+
+.track .content-container hgroup.artist-title{
+padding-top: 3px;
+margin: -3px 0 10px 0;
+width: 500px;
+font-size: 20px;
+font-size: 20px;
+-webkit-font-smoothing: antialiased;
+overflow: auto;
+display: block;}
+
+hgroup.artist-title h4, hgroup.artist-title h3{
+  line-height: 25px;
+}
+hgroup.artist-title h4{font-weight:normal;}
+
+ul.user-detail{margin-top: 0px;
+margin-right: 0px;
+margin-bottom: -10px;
+margin-left: 0px;}
+
+.user-detail li{
+  position: relative;
+  padding: 10px 10px 10px 0;
+  zoom: 1;
+  width: 450px;
+  min-height: 45px;
+  overflow: hidden;
+  border: 1px solid #EDEDED;
+  border-width: 1px 0 1px 0;
+  border-color: #EDEDED transparent transparent;
+  margin-bottom: -1px;
+}
+.user-detail img{float: left;
+margin: 0 10px 0 0;
+z-index: 20;
+position: relative;
+width:24px;}
