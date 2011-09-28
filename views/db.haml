@@ -1,6 +1,7 @@
 %div.track
-  - @users.each do |track|
-    %div= "#{track.name.to_s}"
+  - @users.each do |user|
+    %div= "#{user.name.to_s}"
+    %div= "#{user.tracks.first.inspect}"
 %div.track
   - @tracks.each do |track|
     %div= "#{track.artist_title.to_s} : #{track.track_title.to_s}"

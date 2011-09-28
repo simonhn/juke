@@ -30,7 +30,7 @@ class Track
   property :artist_title,   String
   property :track_title,    String
   property :created_at,     DateTime
-  belongs_to :user, :required => false 
+  has n, :users, :through => Resource  
 end
 
 configure do
@@ -118,7 +118,10 @@ helpers do
       
   def lookup_track(spotify_id)
     host_url = 'http://ws.spotify.com/lookup/1/.json'
-    file = RestClient.get host_url, {:params => {:uri => spotify_id}}        
+    #response = HTTParty.get(host_url)
+    #puts response.body, response.code, response.message, response.headers.inspect
+    
+    file = RestClient.get host_url, {:params => {:uri => spotify_id}}
     json = Crack::JSON.parse(file)
     return json
   end
@@ -179,7 +182,6 @@ end
 get '/db' do
   @users = User.all
   @tracks = Track.all
-
   haml :db
 end
 
@@ -249,12 +251,12 @@ post '/add/:id' do
       result = add_to_playlist(track_id,settings.spotify_playlist_id_constant,count)
       if result.code == 200
         #add to TrackUser table:
-        track = get_track(track_id)
+        track = get_track(params[:id].to_s)
         cu = current_user
         user_track = cu.tracks << track
-        user_track.save
+        user_track.save        
         flash[:notice] = "Track has been added"
-      else
+      else        
         flash[:error] = "Could not add the track, try again"
       end
     end

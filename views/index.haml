@@ -21,10 +21,10 @@
                 %img{:id => 'del-icon', :src => '/images/del-white.svg'}
           %h4.artist-title= "#{track.artist_title.to_s}"
           %h3.track-title= "#{track.track_title.to_s}"
-        - if track.user_id
+        - if track.users.first
           %ul.user-detail
             %li.block-link
-              %img{:alt => "user", :src =>  User.first(:id => track.user_id).image}/
+              %img{:alt => "user", :src =>  track.users.first.image}/
               .wrapper
                 %span
                   added this track
