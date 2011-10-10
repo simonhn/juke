@@ -8,7 +8,7 @@
       %br
       %a.signin-button.twitter{:href => "/sign_in/twitter"} sign in with twitter
       %a.signin-button.facebook{:href => "/sign_in/facebook"} sign in with facebook
-%ul.tracks
+%ul.unstyled.tracks
   - @tracks.each do |id,track|
     %li.track
       .image-container
@@ -24,7 +24,7 @@
         - if track.users.first
           %ul.user-detail
             %li.block-link
-              %img{:alt => "user", :src =>  track.users.first.image}/
+              %img{:alt => track.users.first.name, :src =>  track.users.first.image, :title => track.users.first.name}/
               .wrapper
                 %span
                   added this track

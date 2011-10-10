@@ -104,7 +104,10 @@ padding: 15px 0;
 border: 1px solid #E6E6E6;
 border-width: 1px 0 0 0;
 position: relative;
-float: left;}
+float: left;
+list-style-type:none; 
+width:700px;
+}
 .image-container{float:left}
 .cover{margin: 0 20px 0 0;
 width: 75px;
@@ -113,14 +116,13 @@ line-height: 750px;
 overflow: hidden;
 text-align: center;
 background-repeat: no-repeat}
-.track .content-container{float: left;}
+.track .content-container{float: left;width:600px;}
 
 
 
 .track .content-container hgroup.artist-title{
 padding-top: 3px;
 margin: -3px 0 10px 0;
-width: 500px;
 font-size: 20px;
 font-size: 20px;
 -webkit-font-smoothing: antialiased;

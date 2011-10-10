@@ -195,7 +195,11 @@ get '/auth/:name/callback' do
     :created_at => Time.now })
   session[:user_id] = user.id
   flash[:info] = "You are now logged in"
-  redirect '/'
+  redirect request.env["omniauth.origin"]  || '/'
+end
+
+get '/auth/failure' do
+  'Hmmm...login issues ey? Did you provide the correct credentials?'
 end
 
 get '/sign_in/:provider/?' do

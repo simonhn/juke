@@ -20,8 +20,8 @@ NowPlaying.prototype = {
           $('.separator').text(" - ").hide().fadeIn();
           $('#track').text(track.name).hide().fadeIn();
           //$('div.track:contains('+track.name+')').append('<span id="playing"><img alt="Now Playing" id="del-icon" src="/images/speaker.svg"></span>').hide().fadeIn();
-           $('<span id="playing"><span><img alt="Now Playing" id="del-icon" src="/images/speaker-grey.svg"></span></span>').hide().appendTo('div.track:contains('+track.name+')').fadeIn();
-          $('div.track:contains('+track.name+')').addClass('now');
+           $('<span id="playing"><span><img alt="Now Playing" id="del-icon" src="/images/speaker-grey.svg"></span></span>').hide().appendTo('li.track:contains('+track.name+')').fadeIn();
+          $('li.track:contains('+track.name+')').addClass('now');
         }
     },
     
